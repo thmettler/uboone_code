@@ -1,0 +1,69 @@
+
+
+process_name: CRTRawtoCRTHit
+
+services:
+{
+	TFileService		: { fileName: "crt-hitprod_%ifb_%tc_%#_QP.root" }
+	TimeTracker		: {}
+	RandomNumberGenerator	: {}
+}
+
+source:
+{
+	module_type:	EmptyEvent
+	maxEvents:   2 
+	firstRun:    1  
+	firstEvent:  0 
+	#ModuleLabel	:"crthits"
+	#InstanceLabel	:""
+	
+}
+
+physics:
+{       
+  analyzers:
+  {
+   
+  }
+
+  producers:
+  {
+   crthit:
+     {
+      module_type: CRTRawtoCRTHit
+      verbose: 0
+      #InputFileName: "/uboone/app/users/dlorca/CRT_october17/prodHit/ProdRun20170604_001007-crt04.1.crtdaq.part"	
+      #InputFileName: "/pnfs/uboone/scratch/users/dlorca/newConversion/CRTrawdata/ProdRun20170604_001007-crt01.1.crtdaq"	
+      #OutputFileName: "/uboone/app/users/dlorca/CRT_october17/prodHit/ProdRun20170604_001007-crt04.1.crtdaq.part.hits"
+      #OutputFileName: "/pnfs/uboone/scratch/users/dlorca/newConversion/CRTrawdata/hits/ProdRun20170604_001007-crt04.1.crtdaq.hits"
+      CRTpositions_file: "/uboone/app/users/dlorca/testberncode_june/larsoft_v06_36_00/srcs/uboonecode/uboone/CRT/CRTpositionsSiPM-V8.txt" 
+      FEBDelays_file: "/uboone/app/users/dlorca/testberncode_june/larsoft_v06_36_00/srcs/uboonecode/uboone/CRT/FEB_CableDelay-V8.txt" 
+      CRTgains_file: "/uboone/app/users/dlorca/testberncode_june/larsoft_v06_36_00/srcs/uboonecode/uboone/CRT/CRTgains-V8.txt" 
+      CRTpedestals_file: "/uboone/app/users/dlorca/testberncode_june/larsoft_v06_36_00/srcs/uboonecode/uboone/CRT/CRTpedestals-V8.txt"
+      #TreeName: "my_tree"
+      run_mode: 3
+      SourceFileName: "/uboone/app/users/tmettler/crt_prod/data/data3.txt"
+     }
+  }
+
+  a1: [ crthit ]
+  p1: [ ]
+  e1: [ rootout ]
+  end_paths: [ a1, e1 ]
+}
+
+
+outputs:
+{
+	rootout:
+	{
+		module_type	: RootOutput
+		#fileName	: "bernzmq_artdaq_%ifb_%tc_%#.root" 
+		fileName	: "crt-hitprod_%ifb_%tc_%#.root" 
+		compressionLevel: 2
+		dataTier	: "raw"
+	}
+}
+
+

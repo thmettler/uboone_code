@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<!-- Production Project -->
+
+<!DOCTYPE project [
+<!ENTITY myvers "v06_36_00">
+<!ENTITY file_type "data">
+<!ENTITY run_type "physics">
+<!ENTITY name "crthit_producer">
+]>
+
+<job>
+
+<project name="&name;">
+
+  <!-- Project size -->
+  <numevents>14500</numevents> <!-- number of events: 4h file == 14400 -->
+  <!--numevents>100</numevents-->
+
+  <!-- Operating System -->
+  <os>SL6</os>
+
+  <!-- Batch resources -->
+  <resource>DEDICATED,OPPORTUNISTIC</resource>
+
+  <!-- Larsoft information -->
+  <larsoft>
+    <tag>&myvers;</tag>
+    <qual>e14:prof</qual>
+    <local>/uboone/app/users/dlorca/CRT_dec17_Grid/localCRTgrid.tar</local> <!-- path to your uboone as a .tar file -->
+  </larsoft>
+
+  <!-- Validate on worker -->
+  <check>0</check>
+
+  <!-- Project stages -->
+
+  <stage name="crt">
+    <inputfile>/pnfs/uboone/scratch/users/dlorca/newConversion/CRTrawdata/ProdRun20170604_081007-crt01.1.crtdaq</inputfile>
+    <fcldir>/uboone/app/users/dlorca/CRT_dec17_Grid/larsoft_v06_36_00/srcs/uboonecode/uboone/RawData/utils/job</fcldir>
+    <fcl>CRTRaw2CRTHitsource.fcl</fcl>
+    <outdir>/pnfs/uboone/scratch/users/dlorca/newConversion/CRTrawdata/grid/source/out</outdir>
+    <logdir>/pnfs/uboone/scratch/users/dlorca/newConversion/CRTrawdata/grid/source/log</logdir>
+    <workdir>/pnfs/uboone/scratch/users/dlorca/newConversion/CRTrawdata/grid/source/workdir</workdir>
+    <numjobs>1</numjobs>
+    <datatier>swizzled</datatier>
+    <!--anadatatier>root-tuple</anadatatier-->
+    <!--maxfilesperjob>1</maxfilesperjob-->
+    <jobsub> --expected-lifetime=medium</jobsub> <!-- or =3h, general request: Disk=X MB, Memory=X MB -->
+    <jobsub_start>--expected-lifetime=short</jobsub_start>
+    <memory>4000</memory>
+    <defname>crtdaq_to_artroot_dlorca_test1</defname>
+  </stage>
+  
+  <!-- file type -->
+  <filetype>&file_type;</filetype>
+  
+  <!-- run type -->
+  <runtype>&run_type;</runtype>
+
+</project>
+
+</job>
+

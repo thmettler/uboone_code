@@ -1,0 +1,54 @@
+process_name: CRTRawInputSource
+
+services:
+{
+	TFileService		: { fileName: "crt-hitsource_%ifb_%tc_%#_QP.root" }
+	TimeTracker		: {}
+	RandomNumberGenerator	: {}
+}
+
+source:
+{
+	module_type	:CRTRawtoCRTHitGPScorr
+	fileNames       :[]
+	ModuleLabel	:"crthit"
+	InstanceLabel	:""
+
+	run_mode: 11
+	Nr_Files: 0
+	Split: 0 # 0=off 1=on
+	WhichHalf: 1 # 1=first half , 2=secondhalf
+	TopPart: 0 # 0= upstream, 1= middle, 2= downstream
+	Offset: 40000
+	verbose:0
+
+	CRTpositions_file: "CRTpositionsSiPM-V8.txt"
+	FEBDelays_file: "FEB_CableDelay-V8.txt"
+      	CRTgains_file: "CRTgains-V8.txt"
+      	CRTpedestals_file: "CRTpedestals-V8.txt"
+	#PartTop_file: "../srcs/uboonecode/uboone/CRT/HalfTop-V2.txt"
+	PartTop_file: "HalfTop-V2.txt"
+	#FEB_MS_delay_file: "../srcs/uboonecode/uboone/CRT/FEB_ms_delay_V2.txt" # file with febdelay ms information
+	#CRT_GPS_correction: "../srcs/uboonecode/uboone/CRT/correction_ts0.txt" # add here file with the correction
+	FEB_MS_delay_file: "FEB_ms_delay_V2.txt" # file with febdelay ms information
+	CRT_GPS_correction: "correction_ts0.txt" # add here file with the correction
+	# add here match trigger correction/CRT only correction
+
+}
+
+outputs:
+{
+	out1:
+	{
+		module_type	: RootOutput
+		fileName	: "crt-hitsource_%ifb_%tc_%#.root" 
+		compressionLevel: 1
+		dataTier	: "raw"
+	}
+}
+
+physics:
+{
+	stream1		: [out1]
+	end_paths	: [stream1]
+}

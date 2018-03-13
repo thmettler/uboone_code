@@ -1,0 +1,45 @@
+process_name: CRTRawInputSource
+
+services:
+{
+	TFileService		: { fileName: "crt-hitsource_%ifb_%tc_%#_QP.root" }
+	TimeTracker		: {}
+	RandomNumberGenerator	: {}
+}
+
+source:
+{
+	module_type	:CRTRawtoCRTHitProd
+	fileNames       :[]
+	ModuleLabel	:"crthit"
+	InstanceLabel	:""
+	run_mode: 11
+	Nr_Files: 0
+	IsTop: 1
+	WhichHalf: 1
+	CRTpositions_file: "../srcs/uboonecode/uboone/CRT/CRTpositionsSiPM-V8.txt"
+	FEBDelays_file: "../srcs/uboonecode/uboone/CRT/FEB_CableDelay-V8.txt"
+      	CRTgains_file: "../srcs/uboonecode/uboone/CRT/CRTgains-V8.txt"
+      	CRTpedestals_file: "../srcs/uboonecode/uboone/CRT/CRTpedestals-V8.txt"
+	HalfTop_file: "../srcs/uboonecode/uboone/CRT/HalfTop-V2.txt"
+	IsDownStream: 0
+	Offset: 40000
+	verbose:0
+}
+
+outputs:
+{
+	out1:
+	{
+		module_type	: RootOutput
+		fileName	: "crt-hitsource_%ifb_%tc_%#.root" 
+		compressionLevel: 1
+		dataTier	: "raw"
+	}
+}
+
+physics:
+{
+	stream1		: [out1]
+	end_paths	: [stream1]
+}
